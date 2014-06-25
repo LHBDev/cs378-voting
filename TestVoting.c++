@@ -17,10 +17,11 @@ To obtain coverage of the test:
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <utility>
 
 #include "gtest/gtest.h"
 
-#include "Collatz.h"
+#include "Voting.h"
 
 // -----------
 // TestVoting
@@ -31,7 +32,14 @@ To obtain coverage of the test:
 // ----
 
 TEST(Voting, read) {
-    ASSERT_EQ();}
+	std::istringstream r("0\n");
+	vector<string, int> candidates;
+	int count = 0;
+	Vote votes[1000];
+	count = Voting_read(r, candidates, votes);
+    ASSERT_EQ(0, count);
+	ASSERT_EQ(0, names.size);
+	ASSERT_EQ()}
 
 TEST(Voting, read2) {
     ASSERT_EQ();}
