@@ -81,7 +81,7 @@ TEST(Voting, eval_2){
 	string val;
 	val = voting_eval(&candidates, (count/2)+1);
 	ASSERT_EQ("Ruben Lujan", candidates[0].get_name());
-	ASSERT_EQ("Ruben Lujan", val);
+	ASSERT_EQ("Ruben Lujan\n", val);
 }
 
 TEST(Voting, eval_3){
@@ -94,30 +94,107 @@ TEST(Voting, eval_3){
 	ASSERT_EQ("Ruben Lujan", val);
 }
 
-// // ----
-// // eval
-// // ----
-
-// TEST(Voting, eval) {
-// 	}
-
 // ------
-// solve
+// losers
 // ------
-// TEST(Collatz, solve) {
-//     std::istringstream r("1 10\n100 200\n201 210\n900 1000\n");
-//     std::ostringstream w;
-//     collatz_solve(r, w);
-//     ASSERT_EQ("1 10 20\n100 200 125\n201 210 89\n900 1000 174\n", w.str());}
+TEST(Voting, losers){
+	Candidate x("ruben");
+	for(int i = 0; i < 4; ++i){
+		x.inc_votes();
+	}
+	vector<Candidate> cand;
+	cand.push_back(x);
+	vector<Candidate> losers;
+	voting_losers(&cand, &losers, 3);
+	ASSERT_EQ(0, losers.size());
+	ASSERT_EQ(1, cand.size());
+}
 
-// TEST(Collatz, solve_2) {
-//     std::istringstream r("0 0\n");
-//     std::ostringstream w;
-//     collatz_solve(r, w);
-//     ASSERT_EQ("", w.str());}
+TEST(Voting, losers_2){
+	vector<Candidate> cand;
+	vector<Candidate> loser;
+	voting_losers(&cand, &loser, 0);
+	ASSERT_EQ(0, loser.size());
+	ASSERT_EQ(0, cand.size());
+}
 
-// TEST(Collatz, solve_3) {
-//     std::istringstream r("1 2\n");
-//     std::ostringstream w;
-//     collatz_solve(r, w);
-//     ASSERT_EQ("1 2 2\n", w.str());}
+TEST(Voting, losers_3){
+	vector<Candidate> cand;
+	vector<Candidate> loser;
+	Candidate x("Ruben");
+	Candidate y("Edgar");
+	Candidate z("Peter");
+	cand.push_back(x);
+	cand.push_back(y);
+	cand.push_back(z);
+	for(int i = 0; i < 3; ++i){
+		if(!i)
+			cand[i].inc_votes();
+		cand[i].inc_votes();
+	}
+	voting_losers(&cand, &loser, 1);
+	ASSERT_EQ(3, cand.size());
+	ASSERT_EQ(2, loser.size());
+	ASSERT_EQ("Edgar", loser.front().get_name());
+	ASSERT_EQ("Peter", loser[1].get_name());
+}
+
+// -----------
+// printWinner
+// -----------
+TEST(Voting, printWinner){
+
+}
+
+TEST(Voting, printWinner_2){
+
+}
+
+TEST(Voting, printWinner_3){
+
+}
+
+// --------
+// checkTie
+// --------
+TEST(Voting, checkTie){
+
+}
+
+TEST(Voting, checkTie_2){
+
+}
+
+TEST(Voting, checkTie_3){
+
+}
+
+// -----------------
+// voting_distribute
+// -----------------
+TEST(Voting, voting_distribute){
+
+}
+
+TEST(Voting, voting_distribute_2){
+	
+}
+
+TEST(Voting, voting_distribute_3){
+	
+}
+
+// ------------
+// voting_solve
+// ------------
+TEST(Voting, solve){
+
+}
+
+TEST(Voting, solve_2){
+	
+}
+
+TEST(Voting, solve_3){
+	
+}
