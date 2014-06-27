@@ -69,9 +69,29 @@ TEST(Voting, read_3) {
 // ----
 TEST(Voting, eval){
 	vector<Candidate> candidates;
-	string x = voting_eval(&candidates);
+	string x = voting_eval(&candidates, 1);
 
 	ASSERT_EQ("", x);
+}
+
+TEST(Voting, eval_2){
+	vector<Candidate> candidates;
+	std::istringstream r("3 \nRuben Lujan\nCristhian Escobar\nEmaly Martinez\n1 2 3 \n");
+	int count = Voting_read(r, &candidates);
+	string val;
+	val = voting_eval(&candidates, (count/2)+1);
+	ASSERT_EQ("Ruben Lujan", candidates[0].get_name());
+	ASSERT_EQ("Ruben Lujan", val);
+}
+
+TEST(Voting, eval_3){
+	string in = "3 \nRuben Lujan\nCristhian Escobar\nEmaly Martinez\n1 2 3 \n2 1 3\n1 3 2\n2 3 1\n3 1 2\n";
+	std::istringstream r(in);
+	vector<Candidate> candidates;
+	int count = Voting_read(r, &candidates);
+	string val;
+	val = voting_eval(&candidates, (count/2)+1);
+	ASSERT_EQ("Ruben Lujan", val);
 }
 
 // // ----
