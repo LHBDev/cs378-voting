@@ -235,6 +235,7 @@ string voting_eval (vector<Candidate>* candidates, int wins) {
                 }
             }
         }
+        cout<<"HERE"<<endl;
         voting_losers(candidates, &losers, lowest);
         voting_distribute(candidates, &losers);
     }
@@ -252,6 +253,7 @@ void voting_solve (std::istream& r, std::ostream& w) {
         vector<Candidate> candidates;
         int count = Voting_read(r, &candidates);
         string winner =  voting_eval(&candidates, (count/2) + 1);
+        cout<<"HERE"<<endl;
         if(winner.back() != '\n')
             winner += "\n";
         w<<winner;
