@@ -1,74 +1,70 @@
-// -------------------------------
-// projects/collatz/RunCollatz.c++
+// --------------------------
+// projects/collatz/Collatz.h
 // Copyright (C) 2014
 // Glenn P. Downing
-// -------------------------------
+// --------------------------
 
-/*
-To compile the program:
-    % g++-4.7 -fprofile-arcs -ftest-coverage -pedantic -std=c++11 -Wall Voting.c++ RunVoting.c++ -o RunVoting
-
-To run the program:
-    % valgrind ./RunVoting < RunVoting.in
-
-To obtain coverage of the run:
-    % gcov-4.7 -b Voting.c++ RunVoting.c++
-
-To configure Doxygen:
-    % doxygen -g
-    That creates the file "Doxyfile".
-    Make the following edits:
-    EXTRACT_ALL            = YES
-    EXTRACT_PRIVATE        = YES
-    EXTRACT_STATIC         = YES
-    GENERATE_LATEX         = NO
-
-To document the program:
-    % doxygen Doxyfile
-*/
-
-// -------
-// defines
-// -------
-
-#ifdef ONLINE_JUDGE
-    #define NDEBUG
-#endif
+// #ifndef Voting_h
+// #define Voting_h
 
 // --------
 // includes
 // --------
 
-#include <iostream> // cin, cout
-    #include <cassert>  // assert
-#include <iostream> // endl, istream, ostream
-#include <utility>  // make_pair, pair
-#include <string>
-#include <sstream>
+/*
+g++-4.7 -fprofile-arcs -ftest-coverage -pedantic -std=c++11 -Wall UVaVoting.c++ -o UVa
+*/
 
 #include <iostream> // istream, ostream
 #include <utility>  // pair
 #include <vector>
 #include <string>
 #include <deque>
+#include <cassert>  // assert
+// #include <iostream> // endl, istream, ostream
+// #include <utility>  // make_pair, pair
+#include <string>
+#include <sstream>
+
+#ifdef ONLINE_JUDGE
+    #define NDEBUG
+#endif
 
 using namespace std;
 
 // ---------
 // Vote class
 // ---------
-
+/*
+ *class for each ballot
+ * @member ballot, deque that holds all the info on the ballot
+ * @member Vote(const Vote &), copy constructor
+ * @member Vote(), default constructor
+ */
 class Vote{
     public:
         deque<int> ballot;
         Vote(const Vote &);
-        Vote(){};
+        Vote();
 };
 
 // ---------------
 // Candidate class
 // ---------------
-
+/**
+ * class that holds all the information for each candidate
+ * @member private name, string of candidate's name
+ * @member private numvotes, number of votes for candidate
+ * @member public votes, deque holding all votes for candidate
+ * @member set_name(string)
+ * @member get_name()
+ * @member inc_votes() increments vote for candidate by 1
+ * @member clear_vote() sets votes for candidate to 0
+ * @member get_numvotes() returns number of votes for candidate
+ * @member add_vote() add vote to votes
+ * @member Candidate(const Candidate &) copy constructor
+ * @member Candidate(string) creates candidate with name string
+ */
 class Candidate{
         string name;
         int numvotes = 0;
@@ -166,41 +162,6 @@ string voting_eval (vector<Candidate>*, int);
 void voting_solve (std::istream&, std::ostream&);
 
 // #endif // Voting_h
-
-
-// % gcov-4.7 -b Collatz.c++
-// File 'Collatz.c++'
-// Lines executed:100.00% of 17
-// Branches executed:100.00% of 18
-// Taken at least once:61.11% of 18
-// Calls executed:89.47% of 19
-// Creating 'Collatz.c++.gcov'
-// ...
-
-
-
-// % cat Collatz.c++.gcov
-// ...
-
-
-
-// % gcov-4.7 -b RunCollatz.c++
-// File 'RunCollatz.c++'
-// Lines executed:100.00% of 3
-// Branches executed:100.00% of 4
-// Taken at least once:50.00% of 4
-// Calls executed:100.00% of 2
-// Creating 'RunCollatz.c++.gcov'
-// ...
-
-
-
-// % cat RunCollatz.c++.gcov
-// ...
-// */
-
-
-
 // ----------------------------
 // projects/collatz/Collatz.c++
 // Copyright (C) 2014
@@ -215,30 +176,7 @@ void voting_solve (std::istream&, std::ostream&);
 
 // #include "Voting.h"
 
-// vector<Candidate> candidates;
-// ----------------
-// Candidate class
-// ----------------
-
-// ----------------------------
-// projects/collatz/Collatz.c++
-// Copyright (C) 2014
-// Glenn P. Downing
-// ----------------------------
-
-// --------
-// includes
-// --------
-
-#include <cassert>  // assert
-#include <iostream> // endl, istream, ostream
-#include <utility>  // make_pair, pair
-#include <string>
-#include <sstream>
-
-// #include "Voting.h"
-
-using namespace std;
+// using namespace std;
 
 // vector<Candidate> candidates;
 // ----------------
@@ -283,6 +221,10 @@ Vote::Vote(const Vote &other){
     ballot = other.ballot;
 }
 
+Vote::Vote(){}
+
+
+void state(vector<Candidate>*);
 // ----------
 // Vote class
 // ----------
@@ -327,10 +269,14 @@ int Voting_read(std::istream& r, vector<Candidate>* candidates) {
         (*candidates).push_back(x);
     }
 
-    while(!r.eof()){
-        Vote v;
+    while(r){
+        if(!r)
+            return count;
         string line;
         getline(r, line);
+        Vote v;
+        
+        
         if(line == "")
             return count;
 
@@ -357,10 +303,16 @@ int Voting_read(std::istream& r, vector<Candidate>* candidates) {
 
 void voting_distribute(vector<Candidate>* candidates, vector<Candidate>* losers){
    for(vector<Candidate>::iterator it = losers->begin(); it != losers->end();++it){
-        Vote v(it->votes.front());
-        v.ballot.pop_front();
-        (*candidates)[v.ballot.front() -1].add_vote(v);
-        (*candidates)[v.ballot.front() - 1].inc_votes();
+        while(!(it->votes.empty())){
+
+            Vote v(it->votes.front());
+            while((*candidates)[v.ballot.front()-1].get_numvotes() == 0){
+                v.ballot.pop_front();
+            }
+            it->votes.pop_front();
+            (*candidates)[v.ballot.front() -1].add_vote(v);
+            (*candidates)[v.ballot.front() - 1].inc_votes();
+        }
    }
    losers->clear();
 }
@@ -409,12 +361,39 @@ string printWinner(vector<Candidate>* candidates){
 // checkTie
 // --------
 bool checkTie(vector<Candidate>* candidates){
-    int i = candidates->front().get_numvotes();
+    int j = 0;
+    for(int i = 0; i < (int)candidates->size() && j == 0;++i){
+        if((*candidates)[i].get_numvotes() != 0)
+            j = (*candidates)[i].get_numvotes();
+
+    }
     for(vector<Candidate>::iterator it = candidates->begin(); it != candidates->end();++it){
-        if(it->get_numvotes() != i && it->get_numvotes() != 0)
+        if(it->get_numvotes() != j && it->get_numvotes() != 0)
             return false;
     }
     return true;
+}
+
+string printAll(vector<Candidate>* candidates){
+    string all = "";
+    bool checked = false;
+    int count = 0;
+    for(vector<Candidate>::iterator it = candidates->begin();it != candidates->end(); ++it){
+ 
+        if(checked)
+            all += "\n";
+        else
+            checked = !checked;
+
+        all += it->get_name();
+        ++count;
+
+    }
+    if(all != "")
+        all += "\n";
+    if(all.back() != '\n' && all != "")
+        all += "\n";
+    return all;
 }
 
 // -----------
@@ -424,41 +403,38 @@ string voting_eval (vector<Candidate>* candidates, int wins) {
     string winner;
     vector<Candidate> losers;
     int lowest = 1000;
-    int highest = 0;
-    int highCount=0;
 
     if(wins == 0)
-        return winner;
+        return printAll(candidates);
     if(candidates->empty())
         return winner;
 
     while(winner == ""){
-        highCount = 0;
+        lowest = 1000;
+        if(checkTie(candidates))
+            return printWinner(candidates);
         for(vector<Candidate>::iterator it = candidates->begin(); it != candidates->end();++it){
-            if(it->get_numvotes() >= wins)
+            int i = it->get_numvotes();
+            if(i >= wins){
                 winner = it->get_name();
-            else if(it->get_numvotes() == wins -1){
-                if(checkTie(candidates))
-                    return printWinner(candidates);
-            }
-            else if(checkTie(candidates))
-                return printWinner(candidates);
-            else if(it->get_numvotes() < lowest && it->get_numvotes() != 0)
-                lowest = it->get_numvotes();
-            else{
-                if(it->get_numvotes() > highest){
-                    highest = it->get_numvotes();
-                    highCount = 1;
-                }
-                if(it->get_numvotes() == highest)
-                    ++highCount;
-                if((int)candidates->size() == highCount){
-                    return printWinner(candidates);
-                }
-            }
+                return winner;}
+            if(i == 0)
+                it->votes.clear();
+            else if(i<lowest && i != 0)
+                lowest = i;
         }
+        // cout<<"HERE"<<endl;
         voting_losers(candidates, &losers, lowest);
         voting_distribute(candidates, &losers);
+        // state(candidates);
+        // int i = 0;
+        // int j = 0;
+        // for(vector<Candidate>::iterator it = candidates->begin();it != candidates->end();++it)
+        // {
+        //     cout<<it->get_name()<<": "<<it->get_numvotes()<<endl;
+        // }
+        // cout<<i<<endl;
+        // cout<<j<<endl;
     }
     return winner;
 }
@@ -467,19 +443,57 @@ string voting_eval (vector<Candidate>* candidates, int wins) {
 // collatz_solve
 // -------------
 
+void state(vector<Candidate>* candidates)
+{
+    cout<<"STATE:"<<endl;
+    for(vector<Candidate>::iterator it = candidates->begin(); it != candidates->end();++it)
+        {
+            cout<< it->get_name()<<" " << it->get_numvotes()<<endl;
+            deque<Vote> v = it->votes;
+            for(deque<Vote>::iterator i = v.begin(); i != v.end(); ++i)
+            {
+                deque<int> b = i->ballot;
+                for(deque<int>::iterator x = b.begin(); x != b.end();++x)
+                {
+                    cout<<*x<<" ";
+                }
+                cout<<endl;
+            }
+        }
+        cout<<endl;
+}
+
 void voting_solve (std::istream& r, std::ostream& w) {
     int i;
     r>>i;
     for(;i>0;--i){
         vector<Candidate> candidates;
         int count = Voting_read(r, &candidates);
-        string winner =  voting_eval(&candidates, (count/2) + 1);
-        if(winner.back() != '\n')
-            winner += "\n";
-        w<<winner;
+        if(count == 0)
+            w<<printAll(&candidates);
+        else{
+            string winner =  voting_eval(&candidates, (count/2) + 1);
+            // cout<<"HERE"<<endl;
+            if(winner.back() != '\n')
+                winner += "\n";
+
+            w<<winner;
+        }
+        if(i > 1)
+            w<<endl;
+
     }
 }
 
+
+
+// --------
+// includes
+// --------
+
+// #include <iostream> // cin, cout
+
+// #include "Voting.h"
 
 // ----
 // main

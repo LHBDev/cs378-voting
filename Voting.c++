@@ -61,6 +61,10 @@ Vote::Vote(const Vote &other){
     ballot = other.ballot;
 }
 
+Vote::Vote(){}
+
+
+void state(vector<Candidate>*);
 // ----------
 // Vote class
 // ----------
@@ -105,10 +109,14 @@ int Voting_read(std::istream& r, vector<Candidate>* candidates) {
         (*candidates).push_back(x);
     }
 
-    while(!r.eof()){
-        Vote v;
+    while(r){
+        if(!r)
+            return count;
         string line;
         getline(r, line);
+        Vote v;
+        
+        
         if(line == "")
             return count;
 
@@ -135,10 +143,16 @@ int Voting_read(std::istream& r, vector<Candidate>* candidates) {
 
 void voting_distribute(vector<Candidate>* candidates, vector<Candidate>* losers){
    for(vector<Candidate>::iterator it = losers->begin(); it != losers->end();++it){
-        Vote v(it->votes.front());
-        v.ballot.pop_front();
-        (*candidates)[v.ballot.front() -1].add_vote(v);
-        (*candidates)[v.ballot.front() - 1].inc_votes();
+        while(!(it->votes.empty())){
+
+            Vote v(it->votes.front());
+            while((*candidates)[v.ballot.front()-1].get_numvotes() == 0){
+                v.ballot.pop_front();
+            }
+            it->votes.pop_front();
+            (*candidates)[v.ballot.front() -1].add_vote(v);
+            (*candidates)[v.ballot.front() - 1].inc_votes();
+        }
    }
    losers->clear();
 }
@@ -187,9 +201,14 @@ string printWinner(vector<Candidate>* candidates){
 // checkTie
 // --------
 bool checkTie(vector<Candidate>* candidates){
-    int i = candidates->front().get_numvotes();
+    int j = 0;
+    for(int i = 0; i < (int)candidates->size() && j == 0;++i){
+        if((*candidates)[i].get_numvotes() != 0)
+            j = (*candidates)[i].get_numvotes();
+
+    }
     for(vector<Candidate>::iterator it = candidates->begin(); it != candidates->end();++it){
-        if(it->get_numvotes() != i && it->get_numvotes() != 0)
+        if(it->get_numvotes() != j && it->get_numvotes() != 0)
             return false;
     }
     return true;
@@ -202,8 +221,6 @@ string voting_eval (vector<Candidate>* candidates, int wins) {
     string winner;
     vector<Candidate> losers;
     int lowest = 1000;
-    int highest = 0;
-    int highCount=0;
 
     if(wins == 0)
         return winner;
@@ -211,33 +228,31 @@ string voting_eval (vector<Candidate>* candidates, int wins) {
         return winner;
 
     while(winner == ""){
-        highCount = 0;
+        lowest = 1000;
+        if(checkTie(candidates))
+            return printWinner(candidates);
         for(vector<Candidate>::iterator it = candidates->begin(); it != candidates->end();++it){
-            if(it->get_numvotes() >= wins)
+            int i = it->get_numvotes();
+            if(i >= wins){
                 winner = it->get_name();
-            else if(it->get_numvotes() == wins -1){
-                if(checkTie(candidates))
-                    return printWinner(candidates);
-            }
-            else if(checkTie(candidates))
-                return printWinner(candidates);
-            else if(it->get_numvotes() < lowest && it->get_numvotes() != 0)
-                lowest = it->get_numvotes();
-            else{
-                if(it->get_numvotes() > highest){
-                    highest = it->get_numvotes();
-                    highCount = 1;
-                }
-                if(it->get_numvotes() == highest)
-                    ++highCount;
-                if((int)candidates->size() == highCount){
-                    return printWinner(candidates);
-                }
-            }
+                return winner;}
+            if(i == 0)
+                it->votes.clear();
+            else if(i<lowest && i != 0)
+                lowest = i;
         }
-        cout<<"HERE"<<endl;
+        // cout<<"HERE"<<endl;
         voting_losers(candidates, &losers, lowest);
         voting_distribute(candidates, &losers);
+        state(candidates);
+        // int i = 0;
+        // int j = 0;
+        // for(vector<Candidate>::iterator it = candidates->begin();it != candidates->end();++it)
+        // {
+        //     cout<<it->get_name()<<": "<<it->get_numvotes()<<endl;
+        // }
+        // cout<<i<<endl;
+        // cout<<j<<endl;
     }
     return winner;
 }
@@ -246,16 +261,43 @@ string voting_eval (vector<Candidate>* candidates, int wins) {
 // collatz_solve
 // -------------
 
+void state(vector<Candidate>* candidates)
+{
+    cout<<"STATE:"<<endl;
+    for(vector<Candidate>::iterator it = candidates->begin(); it != candidates->end();++it)
+        {
+            cout<< it->get_name()<<" " << it->get_numvotes()<<endl;
+            deque<Vote> v = it->votes;
+            for(deque<Vote>::iterator i = v.begin(); i != v.end(); ++i)
+            {
+                deque<int> b = i->ballot;
+                for(deque<int>::iterator x = b.begin(); x != b.end();++x)
+                {
+                    cout<<*x<<" ";
+                }
+                cout<<endl;
+            }
+        }
+        cout<<endl;
+}
+
 void voting_solve (std::istream& r, std::ostream& w) {
     int i;
     r>>i;
     for(;i>0;--i){
         vector<Candidate> candidates;
         int count = Voting_read(r, &candidates);
+        state(&candidates);
+        // for(vector<Candidate>::iterator it = candidates.begin(); it != candidates.end();++it)
+        // {
+        //     cout<<it->get_name()<<": "<<it->get_numvotes()<<endl;
+        // }
         string winner =  voting_eval(&candidates, (count/2) + 1);
-        cout<<"HERE"<<endl;
+        // cout<<"HERE"<<endl;
         if(winner.back() != '\n')
             winner += "\n";
         w<<winner;
+        if(i > 1)
+            w<<endl;
     }
 }

@@ -22,18 +22,36 @@ using namespace std;
 // ---------
 // Vote class
 // ---------
-
+/*
+ *class for each ballot
+ * @member ballot, deque that holds all the info on the ballot
+ * @member Vote(const Vote &), copy constructor
+ * @member Vote(), default constructor
+ */
 class Vote{
 	public:
 		deque<int> ballot;
 		Vote(const Vote &);
-		Vote(){};
+		Vote();
 };
 
 // ---------------
 // Candidate class
 // ---------------
-
+/**
+ * class that holds all the information for each candidate
+ * @member private name, string of candidate's name
+ * @member private numvotes, number of votes for candidate
+ * @member public votes, deque holding all votes for candidate
+ * @member set_name(string)
+ * @member get_name()
+ * @member inc_votes() increments vote for candidate by 1
+ * @member clear_vote() sets votes for candidate to 0
+ * @member get_numvotes() returns number of votes for candidate
+ * @member add_vote() add vote to votes
+ * @member Candidate(const Candidate &) copy constructor
+ * @member Candidate(string) creates candidate with name string
+ */
 class Candidate{
 		string name;
 		int numvotes = 0;
