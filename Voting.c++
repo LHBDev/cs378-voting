@@ -61,30 +61,6 @@ Vote::Vote(const Vote &other){
     ballot = other.ballot;
 }
 
-----------
-Vote class
-----------
-
-void Vote::set_vote(int x){
-    *filler = x;
-    ++filler;
-}
-
-int* Vote::get_setter(){
-    return filler;
-}
-
-int* Vote::get_reader(){
-    return reader;
-}
-
-int Vote::move(){
-    return *++reader;
-}
-
-int Vote::peek(){
-    return *votes;
-}
 
 // ------------
 // collatz_read
@@ -250,7 +226,6 @@ void voting_solve (std::istream& r, std::ostream& w) {
         vector<Candidate> candidates;
         int count = Voting_read(r, &candidates);
         string winner =  voting_eval(&candidates, (count/2) + 1);
-        if(winner.back() != '\n')
-            winner += "\n";
+
         w<<winner;
 }
