@@ -19,6 +19,10 @@
 
 using namespace std;
 
+// ---------
+// Vote class
+// ---------
+
 class Vote{
 	public:
 		deque<int> ballot;
@@ -26,6 +30,9 @@ class Vote{
 		Vote(){};
 };
 
+// ---------------
+// Candidate class
+// ---------------
 
 class Candidate{
 		string name;
