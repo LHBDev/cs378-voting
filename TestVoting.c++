@@ -346,13 +346,22 @@ TEST(Voting, voting_distribute_3){
 // voting_solve
 // ------------
 TEST(Voting, solve){
-
+	istringstream r("2\nRuben Baeza\nPeter Escobar\n1 2\n1 2");
+	ostringstream w;
+	voting_solve(r, w);
+	ASSERT_EQ("Ruben Baeza\n", w.str());
 }
 
 TEST(Voting, solve_2){
-	
+	istringstream r("2\nRuben Baeza\nPeter Escobar\n1 2\n2 1");
+	ostringstream w;
+	voting_solve(r, w);
+	ASSERT_EQ("Ruben Baeza\nPeter Escobar\n", w.str());
 }
 
 TEST(Voting, solve_3){
-	
+	istringstream r("3\nRuben Baeza\nPeter Escobar\nJowana Man\n1 2 3\n2 1 3\n3 1 2\n1 2 3\n2 1 3");
+	ostringstream w;
+	voting_solve(r, w);
+	ASSERT_EQ("Ruben Baeza\n", w.str());
 }
