@@ -1,0 +1,53 @@
+Running main() from gtest_main.cc
+[==========] Running 22 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 22 tests from Voting
+[ RUN      ] Voting.read
+[       OK ] Voting.read (22 ms)
+[ RUN      ] Voting.read_2
+[       OK ] Voting.read_2 (59 ms)
+[ RUN      ] Voting.read_3
+[       OK ] Voting.read_3 (36 ms)
+[ RUN      ] Voting.eval
+[       OK ] Voting.eval (6 ms)
+[ RUN      ] Voting.eval_2
+[       OK ] Voting.eval_2 (17 ms)
+[ RUN      ] Voting.eval_3
+[       OK ] Voting.eval_3 (37 ms)
+[ RUN      ] Voting.losers
+[       OK ] Voting.losers (5 ms)
+[ RUN      ] Voting.losers_2
+[       OK ] Voting.losers_2 (4 ms)
+[ RUN      ] Voting.losers_3
+[       OK ] Voting.losers_3 (11 ms)
+[ RUN      ] Voting.printWinner
+[       OK ] Voting.printWinner (8 ms)
+[ RUN      ] Voting.printWinner_2
+[       OK ] Voting.printWinner_2 (7 ms)
+[ RUN      ] Voting.printWinner_3
+[       OK ] Voting.printWinner_3 (6 ms)
+[ RUN      ] Voting.printWinner_4
+[       OK ] Voting.printWinner_4 (7 ms)
+[ RUN      ] Voting.printWinner_5
+[       OK ] Voting.printWinner_5 (6 ms)
+[ RUN      ] Voting.checkTie
+[       OK ] Voting.checkTie (6 ms)
+[ RUN      ] Voting.checkTie_2
+[       OK ] Voting.checkTie_2 (7 ms)
+[ RUN      ] Voting.checkTie_3
+[       OK ] Voting.checkTie_3 (6 ms)
+[ RUN      ] Voting.voting_distribute
+[       OK ] Voting.voting_distribute (10 ms)
+[ RUN      ] Voting.voting_distribute_2
+[       OK ] Voting.voting_distribute_2 (7 ms)
+[ RUN      ] Voting.solve
+[       OK ] Voting.solve (8 ms)
+[ RUN      ] Voting.solve_2
+[       OK ] Voting.solve_2 (4 ms)
+[ RUN      ] Voting.solve_3
+[       OK ] Voting.solve_3 (6 ms)
+[----------] 22 tests from Voting (293 ms total)
+
+[----------] Global test environment tear-down
+[==========] 22 tests from 1 test case ran. (326 ms total)
+[  PASSED  ] 22 tests.

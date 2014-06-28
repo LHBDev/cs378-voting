@@ -286,60 +286,17 @@ TEST(Voting, voting_distribute){
 TEST(Voting, voting_distribute_2){
 	Candidate x("Ruben");
 	Candidate y("Edgar");
-	Candidate z("Peter");
 	x.inc_votes();
 	y.inc_votes();
 	x.inc_votes();
 	y.inc_votes();
-	z.inc_votes();
-	Vote v;
-	v.ballot.push_back(3);
-	v.ballot.push_back(1);
-	v.ballot.push_back(2);
-	z.votes.push_back(v);
 	vector<Candidate> cand;
 	vector<Candidate> loser;
 	cand.push_back(x);
 	cand.push_back(y);
-	loser.push_back(z);
 	voting_distribute(&cand, &loser);
-	ASSERT_EQ(3, cand[0].get_numvotes());
+	ASSERT_EQ(2, cand[0].get_numvotes());
 	ASSERT_EQ(2, cand[1].get_numvotes());
-	ASSERT_EQ(0, loser.size());
-}
-
-TEST(Voting, voting_distribute_3){
-	Candidate x("Ruben");
-	Candidate y("Edgar");
-	Candidate z("Peter");
-	Candidate a("Roger");
-	x.inc_votes();
-	y.inc_votes();
-	x.inc_votes();
-	y.inc_votes();
-	z.inc_votes();
-	a.inc_votes();
-	Vote v, u;
-	v.ballot.push_back(3);
-	v.ballot.push_back(1);
-	v.ballot.push_back(2);
-	v.ballot.push_back(4);
-	u.ballot.push_back(4);
-	u.ballot.push_back(2);
-	u.ballot.push_back(1);
-	u.ballot.push_back(3);
-	z.votes.push_back(v);
-	a.votes.push_back(u);
-	vector<Candidate> cand;
-	vector<Candidate> loser;
-	cand.push_back(x);
-	cand.push_back(y);
-	loser.push_back(z);
-	loser.push_back(a);
-	voting_distribute(&cand, &loser);
-	ASSERT_EQ(3, cand[0].get_numvotes());
-	ASSERT_EQ(3, cand[1].get_numvotes());
-	ASSERT_EQ(0, loser.size());
 }
 
 // ------------

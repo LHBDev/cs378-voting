@@ -1,0 +1,113 @@
+commit 54941cbbe9b934e004e8ae5a14bd076e66ab2f39
+Author: LHBDev <freeraprb@gmail.com>
+Date:   Sat Jun 28 02:54:22 2014 -0500
+
+    Final changes. Fixed #20. Fixed #14. Fixed #13. Fixed #12.
+
+commit 2c6704e16ce0899a7c80269f094d529dfc2b878e
+Author: LHBDev <freeraprb@gmail.com>
+Date:   Sat Jun 28 02:43:09 2014 -0500
+
+    Improvements done to performance of code
+
+commit 7622094d83c62885cbf010b70f40111b9a9729c1
+Author: Ruben Baeza <rb27735@cs.utexas.edu>
+Date:   Fri Jun 27 21:31:54 2014 -0500
+
+    Added Doxygen documentation. Fixed #11.
+
+commit 79d98a51d592d8ad54508733a889708892c3c318
+Author: LHBDev <freeraprb@gmail.com>
+Date:   Fri Jun 27 21:13:50 2014 -0500
+
+    Added tests used
+
+commit 28e26f9e67afa6d935b492e4154cf65cf46c3dc3
+Author: LHBDev <freeraprb@gmail.com>
+Date:   Fri Jun 27 20:49:27 2014 -0500
+
+    Final tweaks to the program. Fixed #24.
+
+commit bf6c049d083d0058eb0309ab38f362789076ed6f
+Author: LHBDev <freeraprb@gmail.com>
+Date:   Fri Jun 27 20:17:26 2014 -0500
+
+    newline no longer at the end of the line and code cleaned and commented. Fixed #23. Fixed #22. Fixed #21. Fixed #16. Fixed #25
+
+commit 393f076c2609df20341d17f8f384573ba99f75ae
+Author: LHBDev <freeraprb@gmail.com>
+Date:   Fri Jun 27 20:13:27 2014 -0500
+
+    Fixed object transferring error by using deque in Vote. Fixed #17. Fixed #18. Fixed #19.
+
+commit 662d4a4ca9593a9255bcceeb133dcc3b5c02be85
+Author: LHBDev <freeraprb@gmail.com>
+Date:   Fri Jun 27 20:11:01 2014 -0500
+
+    Now working with 5 other students test cases. Fixed #6. Fixed #10. Fixed #15.
+
+commit 0d3e57ca7996af211d5a080bd8d5e7570996fb96
+Author: LHBDev <freeraprb@gmail.com>
+Date:   Fri Jun 27 20:09:07 2014 -0500
+
+    Simple cache version. Fixed #5. Fixed #7. Fixed #8. Fixed #9.
+
+commit fcdf9fed54ec33c985e90be5ef8c25d1cdd92b29
+Author: LHBDev <freeraprb@gmail.com>
+Date:   Fri Jun 27 20:07:09 2014 -0500
+
+    implemented simple solution. Fixed #3. Fixed #4.
+
+commit b1e5fce554bafc453f819ff62f3d317403f05081
+Author: LHBDev <freeraprb@gmail.com>
+Date:   Fri Jun 27 19:45:51 2014 -0500
+
+    Finished unit Tests. Fixed #2.
+
+commit abbfeba0741e71516230166605c07ef08a588a13
+Author: LHBDev <freeraprb@gmail.com>
+Date:   Fri Jun 27 19:45:22 2014 -0500
+
+    Finished unit Tests. Fixed #2.
+
+commit 35420f3b125aad1ca225cae2811bfdfda1a5f3dc
+Author: LHBDev <freeraprb@gmail.com>
+Date:   Fri Jun 27 19:26:30 2014 -0500
+
+    Added most unit tests
+
+commit 9e81fdbb69e23af62619698dd37f84b3b03dd674
+Author: LHBDev <freeraprb@gmail.com>
+Date:   Fri Jun 27 18:44:32 2014 -0500
+
+    Added tests for losers and eval
+
+commit 686883a70e6773a9cceef561656dbece049fcc4f
+Author: LHBDev <freeraprb@gmail.com>
+Date:   Thu Jun 26 21:31:20 2014 -0500
+
+    Added tests for eval
+
+commit 28fe92a6813103b98e943bfce5a8db186dd1fb7b
+Author: LHBDev <freeraprb@gmail.com>
+Date:   Thu Jun 26 19:53:20 2014 -0500
+
+    added tests for Read. Fixed #1.
+
+commit 59fb8b1acbcb951abe31167b854a3f05a205aae7
+Author: Ruben <freeraprb@gmail.com>
+Date:   Tue Jun 24 22:32:12 2014 -0500
+
+    Filling out Voting_read Tests
+
+commit a9542060322921db1bde3a95cf97b18e829a5879
+Author: Ruben Baeza <rb27735@cs.utexas.edu>
+Date:   Tue Jun 24 21:43:04 2014 -0500
+
+    Initial commit
+
+commit 73d122688f8467c31f2932e785c51dd47c6f7871
+Author: LHBDev <freeraprb@gmail.com>
+Date:   Tue Jun 24 21:08:27 2014 -0500
+
+    Initial commit
