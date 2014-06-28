@@ -20,12 +20,10 @@
 using namespace std;
 
 class Vote{
-	int* setter = ballot;
-	int* getter = ballot;
 	public:
-		int ballot[];
-		int get(){return *getter;}
-		void set(int x){*setter++ = x;}
+		deque<int> ballot;
+		Vote(const Vote &);
+		Vote(){};
 };
 
 
@@ -41,6 +39,9 @@ class Candidate{
 		void clear_vote();
 		int get_numvotes();
 		void add_vote(Vote);
+		Candidate(const Candidate &);
+		Candidate(string);
+};
 
 // ------------
 // printWinner

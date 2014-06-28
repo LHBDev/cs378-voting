@@ -248,7 +248,7 @@ string voting_eval (vector<Candidate>* candidates, int wins) {
 void voting_solve (std::istream& r, std::ostream& w) {
     // while (true) {
         vector<Candidate> candidates;
-    	int count = Voting_read(r, &candidates);
+        int count = Voting_read(r, &candidates);
         string winner =  voting_eval(&candidates, (count/2) + 1);
         if(winner.back() != '\n')
             winner += "\n";
