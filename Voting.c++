@@ -61,30 +61,30 @@ Vote::Vote(const Vote &other){
     ballot = other.ballot;
 }
 
-// ----------
-// Vote class
-// ----------
+----------
+Vote class
+----------
 
-// void Vote::set_vote(int x){
-//     *filler = x;
-//     ++filler;
-// }
+void Vote::set_vote(int x){
+    *filler = x;
+    ++filler;
+}
 
-// int* Vote::get_setter(){
-//     return filler;
-// }
+int* Vote::get_setter(){
+    return filler;
+}
 
-// int* Vote::get_reader(){
-//     return reader;
-// }
+int* Vote::get_reader(){
+    return reader;
+}
 
-// int Vote::move(){
-//     return *++reader;
-// }
+int Vote::move(){
+    return *++reader;
+}
 
-// int Vote::peek(){
-//     return *votes;
-// }
+int Vote::peek(){
+    return *votes;
+}
 
 // ------------
 // collatz_read
@@ -137,8 +137,8 @@ void voting_distribute(vector<Candidate>* candidates, vector<Candidate>* losers)
    for(vector<Candidate>::iterator it = losers->begin(); it != losers->end();++it){
         Vote v(it->votes.front());
         v.ballot.pop_front();
-        (*candidates)[v.ballot.front() -1].add_vote(v);
-        (*candidates)[v.ballot.front() - 1].inc_votes();
+        (*candidates)[v.ballot.front()].add_vote(v);
+        (*candidates)[v.ballot.front()].inc_votes();
    }
    losers->clear();
 }
